@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="Lambda_Calculus.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lambda_Calculus"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" x:Name="BodyScroller">
+            <TextBlock x:Name="ConsoleText" FontSize="{Binding TextSize}"/>
+        </ScrollViewer>
+        <TextBox x:Name="Expression" Grid.Row="1" KeyUp="Expression_KeyUp"/>
+        <Grid Grid.Row="2" x:Name="FooterPlaceHolder"/>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="CommandBar">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="settings" Icon="Setting" Click="SettingsButton_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+</Page>

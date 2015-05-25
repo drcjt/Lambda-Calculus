@@ -1,0 +1,36 @@
+﻿{ Booleans, implemented using the well known representation }
+let true  = \x . \y . x
+let false = \x . \y . y
+let if  = \b . b
+
+{ Pairs }
+let pair = \x . \y . \z . z x y
+let fst  = \n. n true
+let snd  = \n. n false
+
+{ Church numerals }
+let zero     = \s. \z . z
+let succ     = \n . \s. \z . s (n s z)
+let one      = succ zero
+let iszero   = \n . n (\x . false) true
+let add      = \n . \m . (n succ m)
+let mult     = \n . \m . (n (add m) zero)
+let zeropair = pair zero zero
+let pred     = \n . snd (n (\x . pair (add (fst x) one) (fst x)) (zeropair))
+let sub      = \n . \m . (m pred n)
+
+let unchurch = \n . n (+ 1) 0   { unchurch can be used to turn a church   }
+                                { numeral into a built in number.         }
+                                { Unfortunately it is harder to go the    }
+                                { other way without building some         }
+                                { notion of booleans into the interpreter }
+
+{ A demonstration of the call-by-name semantics }
+let nonterminate = (\x . x x) (\x . x x)    { A non-terminating expression }
+let lazy  = (\x . 3) nonterminate           { Though this does terminate   }
+
+{ A fixpoint combinator }
+let fix = \f. (\x. f (x x))(\x. f (x x))
+
+{ Example of using fixpoint to define recursive functions, e.g factorial }
+let factorial = fix (\f . \n . if (iszero n) one (mult n (f (pred n))))
